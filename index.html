@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode Lookup with Open Food Facts</title>
+    <title>Barcode Lookup with Open Food Facts2</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,7 +61,7 @@
                     <p><strong>Nutrition Grade:</strong> ${product.nutrition_grades || "N/A"}</p>
                     <img src="${product.image_url || ""}" alt="Product Image" style="max-width: 100%; margin-top: 10px;">
                     <h3>Nutrition Information (per 100g)</h3>
-                    <p><strong>Calories:</strong> ${nutriments["energy-kcal_100g"] || "N/A"} kcal</p>
+                    <p><strong>Calories:</strong> ${nutriments["energy-kcal_serving"] || "N/A"} kcal</p>
                     <p><strong>Fat:</strong> ${nutriments["fat_100g"] || "N/A"} g</p>
                     <p><strong>Saturated Fat:</strong> ${nutriments["saturated-fat_100g"] || "N/A"} g</p>
                     <p><strong>Carbohydrates:</strong> ${nutriments["carbohydrates_100g"] || "N/A"} g</p>
