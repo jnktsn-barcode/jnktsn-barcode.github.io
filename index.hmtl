@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcode Lookup with Open Food Facts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Product Lookup</h1>
+<p>Enter a barcode to find product information:</p>
+
+<input type="text" id="barcode" placeholder="Enter barcode number" />
+<button onclick="fetchProduct()">Search</button>
+
+<div id="result"></div>
+
+<script>
+    async function fetchProduct() {
+        const barcode = document.getElementById("barcode").value;
+        const resultDiv = document.getElementById("result");
+
+        if (!barcode) {
+            resultDiv.innerHTML = "<p>Please enter a barcode number.</p>";
+            return;
+        }
+
+        const url = `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.status === 1) {
+                const product = data.product;
+                resultDiv.innerHTML = `
+                    <h2>${product.product_name || "Product Name Not Available"}</h2>
+                    <p><strong>Brand:</strong> ${product.brands || "N/A"}</p>
+                    <p><strong>Categories:</strong> ${product.categories || "N/A"}</p>
+                    <p><strong>Ingredients:</strong> ${product.ingredients_text || "N/A"}</p>
+                    <p><strong>Nutrition Grade:</strong> ${product.nutrition_grades || "N/A"}</p>
+                    <img src="${product.image_url || ""}" alt="Product Image" style="max-width: 100%; margin-top: 10px;">
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>Product not found.</p>`;
+            }
+        } catch (error) {
+            resultDiv.innerHTML = `<p>Error fetching product information.</p>`;
+            console.error("Error:", error);
+        }
+    }
+</script>
+
+</body>
+</html>
