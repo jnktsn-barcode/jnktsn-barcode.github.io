@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,6 +51,8 @@ DOCTYPE html>
 
             if (data.status === 1) {
                 const product = data.product;
+                const nutriments = product.nutriments || {};
+
                 resultDiv.innerHTML = `
                     <h2>${product.product_name || "Product Name Not Available"}</h2>
                     <p><strong>Brand:</strong> ${product.brands || "N/A"}</p>
@@ -58,6 +60,15 @@ DOCTYPE html>
                     <p><strong>Ingredients:</strong> ${product.ingredients_text || "N/A"}</p>
                     <p><strong>Nutrition Grade:</strong> ${product.nutrition_grades || "N/A"}</p>
                     <img src="${product.image_url || ""}" alt="Product Image" style="max-width: 100%; margin-top: 10px;">
+                    <h3>Nutrition Information (per 100g)</h3>
+                    <p><strong>Calories:</strong> ${nutriments["energy-kcal_100g"] || "N/A"} kcal</p>
+                    <p><strong>Fat:</strong> ${nutriments["fat_100g"] || "N/A"} g</p>
+                    <p><strong>Saturated Fat:</strong> ${nutriments["saturated-fat_100g"] || "N/A"} g</p>
+                    <p><strong>Carbohydrates:</strong> ${nutriments["carbohydrates_100g"] || "N/A"} g</p>
+                    <p><strong>Sugars:</strong> ${nutriments["sugars_100g"] || "N/A"} g</p>
+                    <p><strong>Fiber:</strong> ${nutriments["fiber_100g"] || "N/A"} g</p>
+                    <p><strong>Proteins:</strong> ${nutriments["proteins_100g"] || "N/A"} g</p>
+                    <p><strong>Salt:</strong> ${nutriments["salt_100g"] || "N/A"} g</p>
                 `;
             } else {
                 resultDiv.innerHTML = `<p>Product not found.</p>`;
